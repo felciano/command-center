@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Command Center - Launcher options</title>
+  <link rel="stylesheet" href="cc-launcher-options.css">
+  <script src="cc-launcher-options.js" defer></script>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">COMMAND CENTER / ON DEMAND</p>
+    <h1>Your dashboard. On your terms.</h1>
+    <p class="intro">Open Command Center when you need it. Your new-tab page stays yours.</p>
+    <form id="settings-form">
+      <fieldset>
+        <legend>Open a new dashboard in</legend>
+        <label class="choice"><input type="radio" name="mode" value="window" checked>
+          <span><strong>A separate, app-like window</strong><small>A Chrome window without the normal tab strip. Default.</small></span>
+        </label>
+        <label class="choice"><input type="radio" name="mode" value="tab">
+          <span><strong>A normal Chrome tab</strong><small>Keep the dashboard alongside your other tabs.</small></span>
+        </label>
+      </fieldset>
+      <label class="choice reuse"><input type="checkbox" id="reuse" checked>
+        <span><strong>Focus the dashboard if it is already open</strong><small>Bring it to the front instead of opening another copy.</small></span>
+      </label>
+      <p class="note">Changing the launch mode affects the next new dashboard. Close an existing dashboard first to use the new mode.</p>
+      <div class="buttons"><button type="submit">Save preferences</button><button type="button" id="launch" class="secondary">Save and open dashboard</button></div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+    <section>
+      <h2>Keyboard shortcut</h2>
+      <p>The suggested shortcut is <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd> on Mac, or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Y</kbd> on Windows/Linux.</p>
+      <p>Set or change it at <code>chrome://extensions/shortcuts</code>. The shortcut is scoped to Chrome by default.</p>
+      <button type="button" id="shortcuts" class="secondary">Open Chrome shortcut settings</button>
+    </section>
+    <section>
+      <h2>Something not working?</h2>
+      <p>Open <code>chrome://extensions</code>, find <strong>Command Center - On Demand</strong>, and check for errors. After rebuilding, click Reload on that extension card. Do not remove the extension to update it.</p>
+      <p>This launcher does not configure service accounts, API keys, or Google OAuth. Those remain the dashboard's own settings.</p>
+    </section>
+    <footer>On-demand customization 1.0.0. Independent modification of Command Center, not an official upstream release.</footer>
+  </main>
+</body>
+</html>

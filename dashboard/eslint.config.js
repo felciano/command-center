@@ -6,6 +6,8 @@ export default tseslint.config(
     ignores: [
       "dist/**",
       "dist-extension/**",
+      "dist-ondemand/**",
+      ".cc-ondemand-*/**",
       "coverage/**",
       "node_modules/**",
       "scripts/**",

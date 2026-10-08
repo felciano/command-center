@@ -1,0 +1,52 @@
+name: On-demand extension
+
+on:
+  push:
+    branches: [on-demand]
+  pull_request:
+    branches: [on-demand]
+
+# No releases, secrets, deployment or upstream auto-merges.
+permissions:
+  contents: read
+
+concurrency:
+  group: ondemand-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: dashboard
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install pnpm
+        run: npm install --global pnpm@10.15.1
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Upstream lint and type checks
+        run: pnpm run lint
+      - name: Upstream test suite
+        run: pnpm test
+      - name: Launcher and build-safety tests
+        run: pnpm run test:ondemand
+      - name: Build both flavors
+        run: pnpm run build:ondemand
+      - name: Validate installable on-demand extension
+        run: pnpm run validate:ondemand
+      - name: Upload unpacked extension ZIP
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: command-center-on-demand-${{ github.sha }}
+          path: dashboard/dist-ondemand/
+          if-no-files-found: error
+          retention-days: 30
